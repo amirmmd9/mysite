@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{%load static%}
+<html dir="rtl" lang="fa" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AMA.com || Css Grid Layout Project</title>
+
+        <!-- Favicon -->
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="{% static 'images/favicon_io/apple-touch-icon.png'%}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="{% static 'images/favicon_io/favicon-32x32.png'%}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="{% static 'images/favicon_io/favicon-16x16.png'%}"
+        />
+        <link rel="manifest" href="{%static 'images/favicon_io/site.webmanifest'%}" />
+
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="{%static 'css/bootstrap-icons.css'%}" />
+        <!-- CSS File -->
+        <link rel="stylesheet" href="{%static 'css/styles.css'%}" />
+    </head>
+    <body>
+        <aside id="sidebar" class="sidebar">
+            <div>
+                <button id="close-btn" class="close-btn">
+                    <i class="bi bi-x"></i>
+                </button>
+    
+                
+        </aside>
+        <nav id="nav" class="nav">
+            <div class="nav-center">
+                <div class="nav-header">
+                    <h3>AMA.com</h3>
+                    <button id="nav-btn" class="nav-btn">
+                        <i class="bi bi-list-nested"></i>
+                    </button>
+                </div>
+    
+                <ul class="nav-links">
+                    <li>
+                        <a href="/">صفحه اصلی</a>
+                    </li>
+                    <li>
+                        <a href="{%url 'about_page'%}">درباره ما</a>
+                    </li>
+                    <li>
+                        <a href="{%url 'rezome'%}">رزومه مدرسان</a>
+                    </li>
+                    <li>
+                        <a href="{%url 'maghale'%}">مقالات</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        {%block content%}
+        {%endblock%}
+        <footer class="footer">
+            <ul class="social-icons">
+                <li>
+                    <a href="#" class="social-icon">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="social-icon">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="social-icon">
+                        <i class="bi bi-telegram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="social-icon">
+                        <i class="bi bi-whatsapp"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="social-icon">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <p>
+                کلیه‌ی حقوق نزد وب پروگ محفوظ است &copy; <span id="date"></span>
+            </p>
+        </footer>
+        <script src="{%static 'js/app.js'%}"></script>
+    </body>
+</html>

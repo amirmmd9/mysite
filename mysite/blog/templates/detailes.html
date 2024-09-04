@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{%load static%}
+
+
+{%block content%}
+    <div>
+        <br>
+        <h2 style="text-align: center;"><b style="color: rgb(255, 8, 8);">عنوان:</b>{{post.title}}</h2>
+        <p style="padding: 2%;">
+            <i style="color: rgb(255, 142, 5); ">توضیحات:</i>
+            {{post.body|linebreaksbr}}
+        </p>
+        <p>
+        {%if new_comment%}
+            <span>
+                در حال تایید
+            </span>
+        {%else%}
+            <form method="post">
+                {{comment_form.as_p}}
+                {%csrf_token%}
+                <input type="submit" value="send">
+            </form>
+        {%endif%}
+        <div style="text-align: center;">
+            <article>
+                <h1>پیام ها:</h1>
+                {%for c in post.active_comment%}
+                    <span>
+                        نام:{{c.name}}
+                        <br>
+                        متن پیام:{{c.comment}}
+                        <br>
+                        تاریخ نشر:{{c.created}}
+                        <br>
+                        <hr>
+                    </sp>
+                {% endfor %}   
+            </article>
+
+        </div>
+
+        
+    </div>
+{%endblock%}

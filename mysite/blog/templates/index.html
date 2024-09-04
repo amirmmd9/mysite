@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{%load static%}
+
+
+{%block content%}
+    <header class="hero">
+        <div class="section-center hero-center">
+            <article class="hero-info">
+                <div class="underline"></div>
+                <h2>ورود به سایت</h2>
+                <h4>عضوی از خانواده ی آما شو :)</h4>
+                {%if request.user.is_authenticated%}
+                    <p>شما در سایت وارد شدید</p>
+                    <a href="{%url 'logout_view'%}" class="btn hero-btn">خروج</a>
+                {%else%}
+                    <p>شما باید به سایت ورود کنید</p>
+                    <a href="{%url 'login_view'%}" class="btn hero-btn">ثبت نام/ورود</a>
+                {%endif%}
+
+                <ul class="social-icons hero-icons">
+                    <li>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-telegram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="hero-img">
+                <img
+                    class="hero-photo"
+                    src="{%static 'images/hero-img.jpg'%}"
+                    alt="hero-img"
+                />
+            </article>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="section-center about-center">
+            <article class="about-img">
+                <img
+                    class="about-photo"
+                    src="{%static 'images/about-img.jpg'%}"
+                    alt="about-img"
+                />
+            </article>
+
+            <article class="about-info">
+                <div class="about-title">
+                    <h2>درباره ما</h2>
+                    <div class="underline"></div>
+                </div>
+
+                <p>
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
+                    چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون
+                    بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
+                    برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با
+                    هدف بهبود ابزارهای کاربردی می باشد.
+                </p>
+                <p>
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
+                    چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون
+                    بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
+                    برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با
+                    هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت
+                    و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و
+                    متخصصان را می طلبد
+                </p>
+
+                <a href="{%url 'about_page'%}" class="btn">درباره ما</a>
+            </article>
+        </div>
+    </section>
+
+    <section class="section bg-grey">
+        <div class="section-title">
+            <h2>خدمات</h2>
+            <div class="underline"></div>
+        </div>
+        
+            <div class="section-center services-center" >
+                {%for amir in khedmat%}
+                    <article class="service">
+                        <h4><a href="{{amir.get_url}}">{{amir.name}}</a></h4>
+                        <div class="underline"></div>
+                        <p>
+                            {{amir.text|truncatewords:"4"}}
+                        </p>
+                    </article>
+                {%endfor%}
+            </div>
+        
+    </section>
+
+    
+        <section class="section blog">
+            <div class="section-title">
+                <h2>آموزش ها</h2>
+                <div class="underline"></div>
+            </div>
+             
+                <div class="section-center blog-center">
+                    {%for posts in post%}
+                        <div class="card">
+                            <div class="card-side card-front">
+                                    
+                                    <img src="{{posts.pic.url}}" alt="" />
+                                
+                                    <div class="card-info">
+                                                <h4>{{posts.title}}</h4>
+                                                <p>
+                                                    {{posts.body|truncatewords:"8"}}
+                                                </p>
+                                        <div class="card-footer" dir="ltr">
+                                            <img
+                                                src="{{posts.pic_author.url}}"
+                                                alt="author-image"
+                                                
+                                            />
+                                            <br>
+                                            {{posts.author}}
+                                            
+                                            
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="card-side card-back">
+                                <button class="btn"><a href="{{posts.get_absolute_url}}">مشاهده بیشتر</a></button>
+                            </div>
+                        </div>
+                    {%endfor%}
+                </div>
+                
+            
+        </section>
+   
+{%endblock%}

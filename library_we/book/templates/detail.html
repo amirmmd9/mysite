@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+
+{%block title%}
+    index
+{%endblock%}
+
+{%block body%}
+    <div>
+        <h1>عنوان:{{post.title}}</h1>
+        <h2>نویسنده:{{post.author}}</h2>
+        <h3>تاریخ انتشار:{{post.published_date_book}}</h3>
+        <h3>موجود:{{post.exist}}</h3>
+        <h3>قیمت:{{post.price}} تومان</h3>
+        <h3>در رده ی:None</h3>
+    </div>
+
+{%endblock%}

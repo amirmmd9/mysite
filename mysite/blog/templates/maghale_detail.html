@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{%load static%}
+
+
+{%block content%}
+    <div style="text-align: center;">
+        <br>
+        <h2>موضوع>>{{post.name}}</h2>
+        <br>
+        <h2>متن:</h2>
+        <span>{{post.text}}</span>
+        <h3>نویسنده:{{post.author}}</h3>
+    </div>
+{%endblock%}
