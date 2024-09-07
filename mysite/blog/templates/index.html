@@ -12,6 +12,7 @@
                 {%if request.user.is_authenticated%}
                     <p>شما در سایت وارد شدید</p>
                     <a href="{%url 'logout_view'%}" class="btn hero-btn">خروج</a>
+                    <a href="{%url 'changpassword'%}" class="btn hero-btn">تعویض رمز عبور</a>
                 {%else%}
                     <p>شما باید به سایت ورود کنید</p>
                     <a href="{%url 'login_view'%}" class="btn hero-btn">ثبت نام/ورود</a>

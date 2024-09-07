@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from . import models
 from . import forms
 from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.decorators import login_required
+from time import sleep
 
 def index(request):
     post = models.Post.objects.filter(status = 'published')
@@ -78,3 +80,25 @@ def maghale_detail(request,slug,id,name):
         'post':post_model
     }
     return render(request,"maghale_detail.html",context=con)
+
+@login_required(login_url='index')
+def changpassword(request):
+    if request.method == 'POST':
+        user = request.user
+        form = forms.ChangePassword(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            old_password = cd['old_password']
+            new_password1 = cd['new_password1']
+            new_password2 = cd['new_password2']
+            if not user.check_password(old_password):
+                return HttpResponse('رمز قبلی اشتباه وارد شده است')
+            elif new_password1 != new_password2:
+                return HttpResponse('پسوردهای جدید با هم مطابقت ندارد')
+            else:
+                user.set_password(new_password1)
+                user.save()
+                return HttpResponse('پسورد تغییر یافت')
+    else:
+        form = forms.ChangePassword()
+    return render(request,'changepassword.html',{'form':form})

@@ -20,3 +20,8 @@ class Comment_Form(forms.ModelForm):
     class Meta:
         model = models.model_comment
         fields = ('name','comment')
+
+class ChangePassword(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput)
+    new_password1 = forms.CharField(widget=forms.PasswordInput)
+    new_password2 = forms.CharField(widget=forms.PasswordInput)

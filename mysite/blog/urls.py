@@ -10,5 +10,6 @@ urlpatterns = [
     path('maghale/<str:slug>/<int:id>/<str:name>/',views.maghale_detail,name="maghale_detail"),
     path('blog/login/',views.log_in_and_join,name="login_view"),
     path('blog/logout/',views.logout_view,name="logout_view"),
+    path('blog/changepassword/',views.changpassword,name="changpassword")
 
 ]
