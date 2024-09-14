@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+
+{% block title %}
+    index
+{%endblock%}
+
+{% block body%}
+    <header class="header">
+        {%if request.user.is_authenticated%}
+        <h1 class="lk">You are login!!!</h1>
+        <a href="{%url 'logout'%}">logout</a>
+        <br>
+        <a href="{%url 'Changepassword'%}">change_password</a>
+        {%else%}
+        <h1 class="lk">You have to login :)</h1>
+        <a href="{%url 'login_page'%}">login</a>
+        <br>
+        <a href="#">logup</a>
+        {%endif%}
+        <br>
+        <a href="{%url 'ser'%}" target="_blank">api_serialiaze</a>
+    </header>
+    <div class="b">
+        <h1 class="lk">posts:</h1>
+        {%for p in page_obj%}
+            <article class = "ci">
+               <a href="{{p.get_absolute_url}}">{{p.title}}</a>
+               <p>{{p.body|truncatechars:8}}</p>
+            </article>
+            <h2>tag:                
+                {%for tag in p.tag.all %}
+                    <a href="{%url 'index_tag' tag.slug%}">
+                        {{tag.slug}}
+                    </a>
+                {%endfor%}
+            </h2>
+        {%endfor%}
+    
+        <hr>
+        <!--page:-->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{%endblock%}
+
+{%block comment%}
+
+
+{%endblock%}
