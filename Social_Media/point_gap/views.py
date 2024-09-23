@@ -8,11 +8,12 @@ from . import serialiazers
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.models import User
 from . import forms
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
 from django.core.paginator import Paginator
-
+from rest_framework.views import APIView
 
 def index(request,tag_slug=None):
     if tag_slug:
@@ -43,6 +44,52 @@ def serialiaze_m(request : Request):
     obj = models.Post.objects.order_by('status').all()
     serialiaze_obj = serialiazers.Serialiaze_M(obj,many = True)
     return Response(serialiaze_obj.data,status.HTTP_200_OK)
+#--------------------------------
+def logup_m(request):
+    if request.method == 'POST':
+        form_m = forms.Logup_Form(request.POST)
+        if form_m.is_valid():
+            cd = form_m.cleaned_data
+            user = User.objects.create_user(username=cd['username'],password=cd['your_password'],email=cd['email'])
+            user.first_name = cd['first_name']
+            user.last_name = cd['last_name']
+            user.save()
+            return redirect('index')
+    else:
+        form_m = forms.Logup_Form()
+    return render(request,'logup.html',{'form':form_m})
+
+class Api_dl(APIView):
+    def get(self,request:Request):
+        obj = models.Post.objects.order_by('status').all()
+        serialiaze_obj = serialiazers.Serialiaze_M(obj,many = True)
+        return Response(serialiaze_obj.data,status.HTTP_200_OK)
+    def post(self,request:Request):
+        serialiaze = serialiazers.Serialiaze_M(data = request.data)
+        if serialiaze.is_valid():
+            serialiaze.save()
+            return Response(serialiaze.data,status.HTTP_201_CREATED)
+        else:
+            return Response(None,status.HTTP_400_BAD_REQUEST)
+
+
+
+#--------------------------------
+
+def profile(request):
+    user = request.user
+    return render(request,'profile.html',{'user':user})
+
+def addpost(request,n=None):
+    if request.method == 'POST':
+        form_post = forms.Add_Post(request.POST)
+        if form_post.is_valid():
+            form_post.save(commit=False)
+            return redirect('prof')
+    else:
+        form_post = forms.Add_Post()
+    return render(request,'addpost.html',{'form':form_post})
+
 
 def login_a(request):
     if request.method == 'POST':
@@ -87,5 +134,7 @@ def changepassword(request):
     else:
         form = forms.ChangePassword()
     return render(request,'Changepassword.html',{'form':form})
+
+
 
         

@@ -10,12 +10,12 @@
         <h1 class="lk">You are login!!!</h1>
         <a href="{%url 'logout'%}">logout</a>
         <br>
-        <a href="{%url 'Changepassword'%}">change_password</a>
+        <a href="{%url 'prof'%}">your_profil</a>
         {%else%}
         <h1 class="lk">You have to login :)</h1>
         <a href="{%url 'login_page'%}">login</a>
         <br>
-        <a href="#">logup</a>
+        <a href="{%url 'logup'%}">logup</a>
         {%endif%}
         <br>
         <a href="{%url 'ser'%}" target="_blank">api_serialiaze</a>

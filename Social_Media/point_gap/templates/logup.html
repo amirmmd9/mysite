@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+
+{% block title %}
+    logup
+{%endblock%}
+
+{% block body%}
+    <form  method="post">
+        <h1>logup_page:</h1>
+        {{form.as_p}}
+        <input type="submit" value="Send" name="ok">
+        {% csrf_token %} 
+    </form>
+
+{%endblock%}

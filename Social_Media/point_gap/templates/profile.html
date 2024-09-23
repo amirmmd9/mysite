@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+
+{% block title %}
+    profil/{{user.username}}
+{%endblock%}
+
+{% block body%}
+    <h1>username  : {{user.username}}</h1>
+    <h2>
+        firstname : {{user.first_name}}
+        <br>
+        lastname  : {{user.last_name}}
+        <br>
+        email : {{user.email}}
+    </h2>
+    <h3>change_password : <a href="{%url 'Changepassword'%}">change_password</a></h3>
+    <a href="{%url 'addpost'%}">add your post</a>
+    <br>
+    <a href="/">home</a>
+{%endblock%}
