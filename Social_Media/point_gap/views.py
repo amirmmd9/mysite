@@ -6,14 +6,14 @@ from rest_framework.decorators import api_view
 from django.shortcuts import redirect, render,get_object_or_404
 from . import serialiazers
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status,viewsets
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from . import forms
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
 from django.core.paginator import Paginator
-from rest_framework.views import APIView
+
 
 def index(request,tag_slug=None):
     if tag_slug:
@@ -39,11 +39,9 @@ def post_detail(request,id,title):
     }
     return render(request,'detail.html',query)
 #serialiaze
-@api_view(['GET'])
-def serialiaze_m(request : Request):
-    obj = models.Post.objects.order_by('status').all()
-    serialiaze_obj = serialiazers.Serialiaze_M(obj,many = True)
-    return Response(serialiaze_obj.data,status.HTTP_200_OK)
+class Api_view(viewsets.ModelViewSet):
+    queryset = models.Post.objects.all()
+    serializer_class = serialiazers.Serialiaze_M
 #--------------------------------
 def logup_m(request):
     if request.method == 'POST':
@@ -59,18 +57,7 @@ def logup_m(request):
         form_m = forms.Logup_Form()
     return render(request,'logup.html',{'form':form_m})
 
-class Api_dl(APIView):
-    def get(self,request:Request):
-        obj = models.Post.objects.order_by('status').all()
-        serialiaze_obj = serialiazers.Serialiaze_M(obj,many = True)
-        return Response(serialiaze_obj.data,status.HTTP_200_OK)
-    def post(self,request:Request):
-        serialiaze = serialiazers.Serialiaze_M(data = request.data)
-        if serialiaze.is_valid():
-            serialiaze.save()
-            return Response(serialiaze.data,status.HTTP_201_CREATED)
-        else:
-            return Response(None,status.HTTP_400_BAD_REQUEST)
+
 
 
 
