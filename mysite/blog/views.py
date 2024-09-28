@@ -4,7 +4,7 @@ from . import models
 from . import forms
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
-from time import sleep
+from django.contrib.auth.models import User
 
 def index(request):
     post = models.Post.objects.filter(status = 'published')
@@ -30,7 +30,7 @@ def detailes(request,slug,id):
         "post":post,
         'new_comment':new_comment,
         'comment_form':comment_form,
-        'comment':comment,
+        'comment':comment,   
     }
     return render(request,'detailes.html',context=amir)
 
@@ -44,7 +44,7 @@ def khedmat(request,slug,id,name):
 def about(request):
     return render(request,"about.html")
 
-def log_in_and_join(request):
+def log_in(request):
     if request.method == 'POST':
         form = forms.Log_in(request.POST)
         if form.is_valid():
@@ -60,7 +60,22 @@ def log_in_and_join(request):
                 return HttpResponse('اکانت شما موجود نمی باشد')
     else:
         form = forms.Log_in()
-    return render(request,'login_join.html',{'form':form})
+    return render(request,'login.html',{'form':form})
+
+def join_logup(request):
+    if request.method == 'POST':
+        form_join = forms.Registeration(request.POST)
+        if form_join.is_valid():
+            cd = form_join.cleaned_data
+            user = User.objects.create_user(username = cd['username'],email=cd['email'],password=cd['password'])
+            user.first_name = cd['first_name']
+            user.last_name = cd['last_name']
+            user.save()
+            return redirect('login_view')
+    else:
+        form_join = forms.Registeration()
+    return render(request,'join.html',{'formjoin':form_join})
+
 
 def logout_view(request):
     logout(request)

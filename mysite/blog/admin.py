@@ -24,7 +24,8 @@ class Admin_magh(admin.ModelAdmin):
 admin.site.register(models.maghalat,Admin_magh)
 #-----------------------------------------
 class Admin_comment(admin.ModelAdmin):
-    list_display = ('name','active')
-    list_filter = ('name',)
-    search_fields = ('name',)
+    list_display = ('post','active')
+    list_editable =('active',)
+# list_filter = ('name',)
+# search_fields = ('name',)
 admin.site.register(models.model_comment,Admin_comment)

@@ -8,8 +8,9 @@ urlpatterns = [
     path('rezome/',views.rezome,name="rezome"),
     path('maghale/',views.maghale,name="maghale"),
     path('maghale/<str:slug>/<int:id>/<str:name>/',views.maghale_detail,name="maghale_detail"),
-    path('blog/login/',views.log_in_and_join,name="login_view"),
+    path('blog/login/',views.log_in,name="login_view"),
     path('blog/logout/',views.logout_view,name="logout_view"),
-    path('blog/changepassword/',views.changpassword,name="changpassword")
+    path('blog/join/',views.join_logup,name='join'),
+    path('blog/changepassword/',views.changpassword,name="changpassword"),
 
 ]

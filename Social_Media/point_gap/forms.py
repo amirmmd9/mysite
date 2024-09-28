@@ -20,3 +20,4 @@ class Add_Post(forms.ModelForm):
     class Meta:
         model = models.Post
         fields = "__all__"
+#['title','body','status','created','updated','slug','tag']

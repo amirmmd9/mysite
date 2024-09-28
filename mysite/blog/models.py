@@ -48,9 +48,9 @@ class maghalat(models.Model):
 
 class model_comment(models.Model):
     post = models.ForeignKey(Post,models.CASCADE,related_name='comment_user',null=True)
-    name = models.CharField(max_length=25,null=True)
+# name = models.CharField(max_length=25,null=True)
     comment = models.TextField()
     active = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True,null=True)
     def __str__(self):
-        return "{0} {1}".format(self.name,self.comment)
+        return "{0}".format(self.comment)

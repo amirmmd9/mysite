@@ -68,13 +68,19 @@ def profile(request):
     return render(request,'profile.html',{'user':user})
 
 def addpost(request,n=None):
+    user = request.user
+    print(user)
     if request.method == 'POST':
         form_post = forms.Add_Post(request.POST)
         if form_post.is_valid():
-            form_post.save(commit=False)
+            form_post.save()
             return redirect('prof')
     else:
         form_post = forms.Add_Post()
+# if user:
+
+# else:
+#     return HttpResponse('you have to login!!!')
     return render(request,'addpost.html',{'form':form_post})
 
 
