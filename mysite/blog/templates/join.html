@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{%load static%}
+
+
+{%block content%}
+   <form method="post" dir="ltr" style="text-align: center;">
+        <br>
+        <h2>:اگر اکانت نداری برای ثبت نام در سایت</h2>
+        {{formjoin.as_p}}
+        <input type="submit" value="Send">
+        {% csrf_token %}
+    </form>
+<!-- {%if formjoin%}
+    {% autoescape on %}
+        <script>
+            alert('شما در سایت ثبت نام کردید ولازم است ورود کنید')
+        </script>
+    {% endautoescape %}
+{%endif%} -->
+    {%if form.errors%}
+   invalid!!!!!!!!!!!!!!!
+       {% for feild in form %}
+           {% if feild.errors %}
+               {%for error in feild.errors%}
+               {{feild.label}} : {{error}}
+               {% endfor %}
+           {% endif %}
+       {% endfor %}
+   {%endif%}
+   <br>
+{%endblock%}

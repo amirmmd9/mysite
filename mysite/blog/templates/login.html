@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{%load static%}
+
+
+{%block content%}
+   <!-- <div dir="ltr" style="text-align: center;">
+      <br>
+      <h2>regiter:</h2>
+      {{form1.as_p}}
+      <a href="#" class="btn">OK</a>
+   </div>
+   <br> -->
+   
+   <form method="post" dir="ltr" style="text-align: center;">
+      <br>
+      <h3>:اگر اکانت دارید یا ثبت نام کرده اید و از آنجا آمدید برای ورود به سایت</h3>
+      {{form.as_p}}
+      <input type="submit" value="Send">
+      {% csrf_token %} 
+   </form>
+   {%if form.errors%}
+   invalid!!!!!!!!!!!!!!!
+       {% for feild in form %}
+           {% if feild.errors %}
+               {%for error in feild.errors%}
+               {{feild.label}} : {{error}}
+               {% endfor %}
+           {% endif %}
+       {% endfor %}
+   {%endif%}
+   <br>
+{%endblock%}
